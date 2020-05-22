@@ -36,6 +36,7 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation();
   const handleSignIn = useCallback(async (data: SignInFormData) => {
     try {
+      console.log(data);
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         email: Yup.string()
@@ -104,15 +105,15 @@ const SignIn: React.FC = () => {
                   formRef.current?.submitForm();
                 }}
               />
-
-              <Button
-                onPress={() => {
-                  formRef.current?.submitForm();
-                }}
-              >
-                Entrar
-              </Button>
             </Form>
+            <Button
+              onPress={() => {
+                formRef.current?.submitForm();
+              }}
+            >
+              Entrar
+            </Button>
+
             <ForgotPassword onPress={() => navigation.navigate('SignUp')}>
               <ForgotPasswordText>Recuperar Senha</ForgotPasswordText>
             </ForgotPassword>

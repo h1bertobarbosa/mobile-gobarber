@@ -53,9 +53,9 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: inputValueRef,
+      ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value: string) {
+      setValue(refs: any, value: string) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({ text: value });
       },
