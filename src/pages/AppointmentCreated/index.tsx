@@ -1,9 +1,52 @@
-import React from 'react';
-import { View, Button } from 'react-native';
-// import { Container } from './styles';
+import React, { useCallback, useMemo } from 'react';
+import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { format } from 'date-fns';
+import ptBr from 'date-fns/locale/pt-BR';
+import {
+  Container,
+  Title,
+  Description,
+  OkButton,
+  OkButtonText,
+} from './styles';
+
+type RouteParams = {
+  date: number;
+};
 
 const AppointmentCreated: React.FC = () => {
-  return <View />;
+  const { reset } = useNavigation();
+  const { params } = useRoute();
+
+  const routeParams = params as RouteParams;
+
+  const handleOkPressed = useCallback(() => {
+    reset({
+      routes: [{ name: 'Dashboard' }],
+      index: 0,
+    });
+  }, [reset]);
+
+  const fomattedDate = useMemo(() => {
+    return format(
+      routeParams.date,
+      "EEEE', dia 'dd 'de' MMMM 'de' yyyy 'às' HH:mm'h'",
+      { locale: ptBr },
+    );
+  }, [routeParams.date]);
+
+  return (
+    <Container>
+      <Icon name="check" size={80} color="#04d361" />
+      <Title>Agendamento concluído</Title>
+      <Description>{fomattedDate}</Description>
+
+      <OkButton onPress={handleOkPressed}>
+        <OkButtonText>OK</OkButtonText>
+      </OkButton>
+    </Container>
+  );
 };
 
 export default AppointmentCreated;
