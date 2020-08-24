@@ -24,7 +24,7 @@ import { Provider } from './types';
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
-  const { signOut, user } = useAuth();
+  const { user } = useAuth();
   const { navigate } = useNavigation();
 
   useEffect(() => {
@@ -34,9 +34,8 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const navigateToProfile = useCallback(() => {
-    // navigate('Profile');
-    signOut();
-  }, [signOut]);
+    navigate('Profile');
+  }, [navigate]);
 
   const navigateToCreateAppointment = useCallback(
     (providerId: string) => {
